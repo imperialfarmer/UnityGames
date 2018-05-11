@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212134658720941718}
   - component: {fileID: 114317810239862526}
   - component: {fileID: 60938923933654410}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,9 @@ MonoBehaviour:
     type: 2}
   moveStep: 15
   controlMode: 0
+  health: 300
   laserSpeed: 10
+  firingRate: 0.2
 --- !u!212 &212134658720941718
 SpriteRenderer:
   m_ObjectHideFlags: 1

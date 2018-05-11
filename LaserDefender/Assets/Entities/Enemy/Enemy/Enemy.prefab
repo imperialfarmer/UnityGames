@@ -23,7 +23,8 @@ GameObject:
   - component: {fileID: 114329840440128242}
   - component: {fileID: 50577264901792230}
   - component: {fileID: 61474592812193106}
-  m_Layer: 0
+  - component: {fileID: 95246915495780426}
+  m_Layer: 9
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,6 +89,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.93, y: 0.84}
   m_EdgeRadius: 0
+--- !u!95 &95246915495780426
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1574127415745102}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e66eb9792663342bebc3a6c9cd2e67cb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114329840440128242
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -101,6 +119,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 200
   bodyExplosion: 100
+  enemyLaserPrefab: {fileID: 1070973601701818, guid: 468f14d631c1541afb4b9789877f99ee,
+    type: 2}
+  laserSpeed: 10
+  fireFrequency: 0.5
 --- !u!212 &212099725426878940
 SpriteRenderer:
   m_ObjectHideFlags: 1

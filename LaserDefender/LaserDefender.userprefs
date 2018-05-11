@@ -1,10 +1,13 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Entities/Enemy/Enemy/Enemy.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Entities/Player/PlayerController.cs">
     <Files>
-      <File FileName="Assets/Entities/Enemy/Enemy/Enemy.cs" Line="31" Column="24" />
-      <File FileName="Assets/Entities/Player/PlayerLaser.cs" Line="1" Column="1" />
-      <File FileName="Assets/Entities/Player/PlayerController.cs" Line="100" Column="42" />
+      <File FileName="Assets/Entities/Enemy/Enemy/Enemy.cs" Line="60" Column="5" />
+      <File FileName="Assets/Entities/Player/PlayerLaser.cs" Line="6" Column="1" />
+      <File FileName="Assets/Entities/Player/PlayerController.cs" Line="116" Column="5" />
+      <File FileName="Assets/Entities/Enemy/Enemy/EnemyLaser.cs" Line="16" Column="1" />
+      <File FileName="Assets/LevelControl/LevelManager.cs" Line="13" Column="15" />
+      <File FileName="Assets/Entities/Enemy/EnemyFormation/EnemyFormation.cs" Line="91" Column="70" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

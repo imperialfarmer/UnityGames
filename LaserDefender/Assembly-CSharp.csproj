@@ -52,7 +52,8 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Entities\Enemy\Enemy\Enemy.cs" />
-     <Compile Include="Assets\Entities\Enemy\EnemyFormation\EnemySpawner.cs" />
+     <Compile Include="Assets\Entities\Enemy\Enemy\EnemyLaser.cs" />
+     <Compile Include="Assets\Entities\Enemy\EnemyFormation\EnemyFormation.cs" />
      <Compile Include="Assets\Entities\Enemy\EnemyFormation\Position.cs" />
      <Compile Include="Assets\Entities\Player\PlayerController.cs" />
      <Compile Include="Assets\Entities\Player\PlayerLaser.cs" />

@@ -6,13 +6,14 @@ public class PlayerController : MonoBehaviour {
 
 
 	public GameObject playerLaserPrefab;
+
 	private LevelManager levelManager;
 	public float moveStep;
 	public int controlMode;
 
 	public float health = 300f;
 
-	public float laserSpeed;
+	public float laserSpeed = 10f;
 	public float firingRate = 0.2f;
 
 	private bool hasStarted = false;
@@ -23,6 +24,8 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		levelManager = GameObject.FindObjectOfType<LevelManager>();
+
 		moveStep *= Time.deltaTime;
 		transform.position = new Vector3(0f, -4f, 0f);
 		// camera x,y /in [0,1]
@@ -98,6 +101,21 @@ public class PlayerController : MonoBehaviour {
 					  	  Mathf.Clamp(Input.mousePosition.y / Screen.height * 12 - 6f, -4.5f, 4.5f),
 					  	  0f);
 		gameObject.transform.position = objPos;
+	}
+
+	void OnTriggerEnter2D(Collider2D collider){
+		Debug.Log("Touch the Player's Body");
+
+		EnemyLaser enemyLaser = collider.gameObject.GetComponent<EnemyLaser>();
+		if(enemyLaser){
+			print("Player Health = " + this.health);
+			health -= enemyLaser.ReturnDamage();
+			print(this.health);
+			if(this.health <= 0){
+				Destroy(gameObject);
+				levelManager.LoadLever("Lose");
+			}
+		}
 	}
 
 }

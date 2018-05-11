@@ -5,14 +5,32 @@ using UnityEngine;
 public class Enemy : MonoBehaviour {
 
 	private LevelManager levelManager;
+
 	public float health = 150f;
 	public float bodyExplosion = 100f;
+
+	public GameObject enemyLaserPrefab;
+	public float laserSpeed = 10f;
+	public float fireFrequency = 0.5f;
 
 	public static int countEnemy = 0;
 
 	void Start(){
 		countEnemy++;
 		levelManager = GameObject.FindObjectOfType<LevelManager>();
+	}
+
+	void Update(){
+		float probability = Time.deltaTime * fireFrequency;
+		if(Random.value < probability){
+			Fire();
+		}
+	}
+
+	void Fire(){
+		Vector3 startPos = transform.position + Vector3.up*-0.5f;
+		GameObject enemyLaser = Instantiate(enemyLaserPrefab, startPos, Quaternion.identity) as GameObject;
+		enemyLaser.GetComponents<Rigidbody2D>()[0].velocity = new Vector2(0f, -laserSpeed);
 	}
 
 	void OnTriggerEnter2D(Collider2D collider){
@@ -27,9 +45,9 @@ public class Enemy : MonoBehaviour {
 			if(this.health <= 0){
 				Destroy(gameObject);
 				countEnemy--;
-				if(countEnemy <= 0){
-					levelManager.LoadLever("Win");
-				}
+				//if(countEnemy <= 0){
+				//	levelManager.LoadLever("Win");
+				//}
 			}
 		}
 
