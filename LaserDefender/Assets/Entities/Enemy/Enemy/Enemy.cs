@@ -15,9 +15,23 @@ public class Enemy : MonoBehaviour {
 
 	public static int countEnemy = 0;
 
+	public int scoreValue = 150;
+	private ScoreKeeper scoreKeeper;
+
+	public AudioClip fireSound;
+	public AudioClip deathSound;
+
+	private HealthText healthText;
+	private ChanceText chanceText;
+
 	void Start(){
 		countEnemy++;
 		levelManager = GameObject.FindObjectOfType<LevelManager>();
+		healthText = GameObject.Find("HealthText").GetComponent<HealthText>();
+		chanceText = GameObject.Find("ChanceText").GetComponent<ChanceText>();
+		// 'ScoreBoard' is the name of GameObject in Unity, which is the object of that text
+		scoreKeeper = GameObject.Find("ScoreBoard").GetComponent<ScoreKeeper>();
+		// scoreKeeper.Reset();
 	}
 
 	void Update(){
@@ -28,9 +42,9 @@ public class Enemy : MonoBehaviour {
 	}
 
 	void Fire(){
-		Vector3 startPos = transform.position + Vector3.up*-0.5f;
-		GameObject enemyLaser = Instantiate(enemyLaserPrefab, startPos, Quaternion.identity) as GameObject;
+		GameObject enemyLaser = Instantiate(enemyLaserPrefab, transform.position, Quaternion.identity) as GameObject;
 		enemyLaser.GetComponents<Rigidbody2D>()[0].velocity = new Vector2(0f, -laserSpeed);
+		AudioSource.PlayClipAtPoint(fireSound, transform.position);
 	}
 
 	void OnTriggerEnter2D(Collider2D collider){
@@ -44,6 +58,8 @@ public class Enemy : MonoBehaviour {
 			print(this.health);
 			if(this.health <= 0){
 				Destroy(gameObject);
+				AudioSource.PlayClipAtPoint(deathSound, transform.position);
+				scoreKeeper.Score(scoreValue);
 				countEnemy--;
 				//if(countEnemy <= 0){
 				//	levelManager.LoadLever("Win");
@@ -54,11 +70,11 @@ public class Enemy : MonoBehaviour {
 		PlayerController player = collider.gameObject.GetComponent<PlayerController>();
 		if(player){
 			Destroy(gameObject);
-			player.health -= bodyExplosion;
-			if(player.health <= 0){
-				Destroy(collider.gameObject);
-				levelManager.LoadLever("Lose");
-			}
+			AudioSource.PlayClipAtPoint(deathSound, transform.position);
+			scoreKeeper.Score(scoreValue);
+			float damage = bodyExplosion;
+			healthText.ShowHealth(player.health);
+			player.Damaged(damage);
 		}
 	}
 }

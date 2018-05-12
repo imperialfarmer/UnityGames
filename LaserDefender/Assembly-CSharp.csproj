@@ -53,17 +53,17 @@
   <ItemGroup>
      <Compile Include="Assets\Entities\Enemy\Enemy\Enemy.cs" />
      <Compile Include="Assets\Entities\Enemy\Enemy\EnemyLaser.cs" />
+     <Compile Include="Assets\Entities\Enemy\Enemy\ScoreKeeper.cs" />
      <Compile Include="Assets\Entities\Enemy\EnemyFormation\EnemyFormation.cs" />
      <Compile Include="Assets\Entities\Enemy\EnemyFormation\Position.cs" />
+     <Compile Include="Assets\Entities\FinalScene\FinalScoreBoard.cs" />
+     <Compile Include="Assets\Entities\Music\MusicPlayer.cs" />
+     <Compile Include="Assets\Entities\Player\ChanceText.cs" />
+     <Compile Include="Assets\Entities\Player\HealthText.cs" />
      <Compile Include="Assets\Entities\Player\PlayerController.cs" />
      <Compile Include="Assets\Entities\Player\PlayerLaser.cs" />
      <Compile Include="Assets\GameSpace\Shredder.cs" />
      <Compile Include="Assets\LevelControl\LevelManager.cs" />
-     <Compile Include="Assets\Scripts\Ball.cs" />
-     <Compile Include="Assets\Scripts\Brick.cs" />
-     <Compile Include="Assets\Scripts\LoseCollider.cs" />
-     <Compile Include="Assets\Scripts\MusicPlayer.cs" />
-     <Compile Include="Assets\Scripts\Paddle.cs" />
  <Reference Include="Facebook.Unity.Settings">
  <HintPath>/Users/geyin/Documents/Unity Workspace/LaserDefender/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
  </Reference>

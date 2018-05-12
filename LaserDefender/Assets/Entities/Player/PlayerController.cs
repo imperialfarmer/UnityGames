@@ -7,11 +7,16 @@ public class PlayerController : MonoBehaviour {
 
 	public GameObject playerLaserPrefab;
 
+	public AudioClip fireSound;
+	public AudioClip deathSound;
+
 	private LevelManager levelManager;
 	public float moveStep;
 	public int controlMode;
 
-	public float health = 300f;
+	public const float HEALTH = 1000f;
+	public float health;
+	public int chance = 2;
 
 	public float laserSpeed = 10f;
 	public float firingRate = 0.2f;
@@ -22,9 +27,17 @@ public class PlayerController : MonoBehaviour {
 	private float xMax, xMin, yMax, yMin;
 	private float padding = 1f;
 
+	private HealthText healthText;
+	private ChanceText chanceText;
+
 	// Use this for initialization
 	void Start () {
+		this.health = HEALTH;
 		levelManager = GameObject.FindObjectOfType<LevelManager>();
+		healthText = GameObject.Find("HealthText").GetComponent<HealthText>();
+		healthText.ShowHealth(health);
+		chanceText = GameObject.Find("ChanceText").GetComponent<ChanceText>();
+		chanceText.ShowChance(chance);
 
 		moveStep *= Time.deltaTime;
 		transform.position = new Vector3(0f, -4f, 0f);
@@ -60,9 +73,10 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Fire(){
-		Vector3 playerLaserPos = transform.position + Vector3.up*0.5f;
-		GameObject playerLaser = Instantiate(playerLaserPrefab, playerLaserPos, Quaternion.identity) as GameObject;
+		GameObject playerLaser 
+			= Instantiate(playerLaserPrefab, transform.position, Quaternion.identity) as GameObject;
 		playerLaser.GetComponents<Rigidbody2D>()[0].velocity = new Vector2(0f, laserSpeed);
+		AudioSource.PlayClipAtPoint(fireSound, transform.position);
 	}
 
 	void MoveObjectUsingKB(){
@@ -108,14 +122,27 @@ public class PlayerController : MonoBehaviour {
 
 		EnemyLaser enemyLaser = collider.gameObject.GetComponent<EnemyLaser>();
 		if(enemyLaser){
-			print("Player Health = " + this.health);
-			health -= enemyLaser.ReturnDamage();
-			print(this.health);
-			if(this.health <= 0){
+			float damage = enemyLaser.ReturnDamage();
+			Damaged(damage);
+		}
+	}
+
+	public void Damaged(float damage){
+		print("Player Health = " + this.health);
+		health -= damage;
+		healthText.ShowHealth(health);
+		print(this.health);
+		if(this.health <= 0){
+			chance--;
+			chanceText.ShowChance(chance);
+			this.health = HEALTH;
+			healthText.ShowHealth(health);
+			AudioSource.PlayClipAtPoint(deathSound, transform.position);
+			if(chance <= 0){
 				Destroy(gameObject);
+				AudioSource.PlayClipAtPoint(deathSound, transform.position);
 				levelManager.LoadLever("Lose");
 			}
 		}
 	}
-
 }

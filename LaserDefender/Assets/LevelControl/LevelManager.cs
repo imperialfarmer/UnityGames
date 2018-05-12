@@ -19,21 +19,7 @@ public class LevelManager : MonoBehaviour {
 		Application.Quit();
 	}
 
-	public void LoadNextLevel(){
-		// automatically load the next level
-		Brick.breakableCount = 0;
-		currentLevel++;
-		Application.LoadLevel(Application.loadedLevel + 1);
-	}
-
 	public void loadCurrentLevel(){
 		Application.LoadLevel(currentLevel);
-	}
-
-	public void BrickDestoyed(){
-		// if this is the last brick, then load next level
-		if(Brick.breakableCount <= 0){
-			LoadNextLevel();
-		}
 	}
 }

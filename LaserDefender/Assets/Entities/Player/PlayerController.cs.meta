@@ -5,8 +5,11 @@ licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
-  executionOrder: 0
+  defaultReferences:
+  - playerLaserPrefab: {fileID: 1070973601701818, guid: 2895524af36a343c8b86415b69197ec8,
+      type: 2}
+  - fireSound: {fileID: 8300000, guid: 771e754c1d50742c49c4ee40cd69d2fc, type: 3}
+  executionOrder: 200
   icon: {instanceID: 0}
   userData: 
   assetBundleName: 
