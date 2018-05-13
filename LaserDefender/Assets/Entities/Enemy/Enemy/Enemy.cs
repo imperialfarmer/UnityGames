@@ -21,8 +21,12 @@ public class Enemy : MonoBehaviour {
 	public AudioClip fireSound;
 	public AudioClip deathSound;
 
+	public AudioClip explosionSound;
+
 	private HealthText healthText;
 	private ChanceText chanceText;
+
+	public GameObject smoke;
 
 	void Start(){
 		countEnemy++;
@@ -52,6 +56,7 @@ public class Enemy : MonoBehaviour {
 
 		PlayerLaser playerLaser = collider.gameObject.GetComponent<PlayerLaser>();
 		if(playerLaser){
+			GenerateSmoke();
 			playerLaser.Hit();
 			print(this.health);
 			health -= playerLaser.ReturnDamage();
@@ -70,11 +75,23 @@ public class Enemy : MonoBehaviour {
 		PlayerController player = collider.gameObject.GetComponent<PlayerController>();
 		if(player){
 			Destroy(gameObject);
+			GenerateSmoke();
 			AudioSource.PlayClipAtPoint(deathSound, transform.position);
 			scoreKeeper.Score(scoreValue);
 			float damage = bodyExplosion;
 			healthText.ShowHealth(player.health);
 			player.Damaged(damage);
 		}
+	}
+
+	void GenerateSmoke(){
+		Vector3 smokePos = transform.position;
+		// a game object is instantiated using this way:
+		// the object, the position, the rotation
+		GameObject smokepuff 
+			= Instantiate(smoke, smokePos, Quaternion.identity) as GameObject;
+		smokepuff.GetComponent<ParticleSystem>().startColor 
+			= gameObject.GetComponent<SpriteRenderer>().color;
+		AudioSource.PlayClipAtPoint(explosionSound, transform.position);
 	}
 }

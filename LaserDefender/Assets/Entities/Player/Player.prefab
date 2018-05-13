@@ -98,12 +98,14 @@ MonoBehaviour:
     type: 2}
   fireSound: {fileID: 8300000, guid: 771e754c1d50742c49c4ee40cd69d2fc, type: 3}
   deathSound: {fileID: 8300000, guid: 95daf8a468976455ba4305a2b1054e8f, type: 3}
+  explosionSound: {fileID: 8300000, guid: 84b6f14d507e049709c8edec448dc567, type: 3}
   moveStep: 15
   controlMode: 0
   health: 1000
   chance: 2
   laserSpeed: 10
   firingRate: 0.2
+  smoke: {fileID: 1863702365967996, guid: 4274f6594e572481180865c0d2d9df3f, type: 2}
 --- !u!212 &212134658720941718
 SpriteRenderer:
   m_ObjectHideFlags: 1

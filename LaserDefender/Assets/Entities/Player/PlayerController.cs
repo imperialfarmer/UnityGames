@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour {
 
 	public AudioClip fireSound;
 	public AudioClip deathSound;
+	public AudioClip explosionSound;
 
 	private LevelManager levelManager;
 	public float moveStep;
@@ -22,6 +23,8 @@ public class PlayerController : MonoBehaviour {
 	public float firingRate = 0.2f;
 
 	private bool hasStarted = false;
+
+	public GameObject smoke;
 
 	// restrict the player in the game screen
 	private float xMax, xMin, yMax, yMin;
@@ -119,7 +122,6 @@ public class PlayerController : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D collider){
 		Debug.Log("Touch the Player's Body");
-
 		EnemyLaser enemyLaser = collider.gameObject.GetComponent<EnemyLaser>();
 		if(enemyLaser){
 			float damage = enemyLaser.ReturnDamage();
@@ -130,6 +132,7 @@ public class PlayerController : MonoBehaviour {
 	public void Damaged(float damage){
 		print("Player Health = " + this.health);
 		health -= damage;
+		GenerateSmoke();
 		healthText.ShowHealth(health);
 		print(this.health);
 		if(this.health <= 0){
@@ -144,5 +147,16 @@ public class PlayerController : MonoBehaviour {
 				levelManager.LoadLever("Lose");
 			}
 		}
+	}
+
+	void GenerateSmoke(){
+		Vector3 smokePos = transform.position;
+		// a game object is instantiated using this way:
+		// the object, the position, the rotation
+		GameObject smokepuff 
+			= Instantiate(smoke, smokePos, Quaternion.identity) as GameObject;
+		smokepuff.GetComponent<ParticleSystem>().startColor 
+			= gameObject.GetComponent<SpriteRenderer>().color;
+		AudioSource.PlayClipAtPoint(explosionSound, transform.position);
 	}
 }

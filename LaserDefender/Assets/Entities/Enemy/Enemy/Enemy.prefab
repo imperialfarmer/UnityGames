@@ -126,6 +126,8 @@ MonoBehaviour:
   scoreValue: 150
   fireSound: {fileID: 8300000, guid: f3dba72dc6a4f4c2bb26202db3da2bb4, type: 3}
   deathSound: {fileID: 8300000, guid: e4dad18d258584422bc0c5b6cbb94411, type: 3}
+  explosionSound: {fileID: 8300000, guid: 84b6f14d507e049709c8edec448dc567, type: 3}
+  smoke: {fileID: 1863702365967996, guid: eab521dbd8115459796dd9ffe9759597, type: 2}
 --- !u!212 &212099725426878940
 SpriteRenderer:
   m_ObjectHideFlags: 1
