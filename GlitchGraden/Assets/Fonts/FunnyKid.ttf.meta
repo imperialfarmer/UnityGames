@@ -1,7 +1,6 @@
 fileFormatVersion: 2
-guid: 9809d223f76494101b418bb9df57e801
-timeCreated: 1526245932
-licenseType: Free
+guid: 9a9a7bdde5c74434393a5b2846497384
+timeCreated: 18446744011573954816
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -10,9 +9,8 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: FunnyKid
-  fontNames:
-  - FunnyKid
+  fontName: 
+  fontNames: []
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
