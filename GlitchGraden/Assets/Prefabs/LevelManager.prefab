@@ -51,4 +51,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe9c43acfae364d75b7cfefa472d66a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  autoLoadNextLevelAfter: 3
+  autoLoadNextLevelAfter: 0

@@ -4,28 +4,35 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour {
 // lead the game to the right scene
-	private static int currentLevel = 1;
+	private static int currentLevel = 3;
+	private static bool hasStarted = false;
 	public float autoLoadNextLevelAfter;
 
-	void Start(){
-		if(autoLoadNextLevelAfter <= 0f){
-			
-		}else{
-			Invoke("LoadNextLevel", autoLoadNextLevelAfter);
+	void Awake(){
+		if (Application.levelCount <= 7){
+			Debug.Log("Now loading " + Application.levelCount);
+			hasStarted = true;
 		}
 	}
 
+	void Start(){
+		if (!hasStarted){
+			Debug.Log("Now loading " + Application.levelCount);
+			if(autoLoadNextLevelAfter <= 0f){
+			}else{
+				Invoke("LoadNextLevel", autoLoadNextLevelAfter);
+			}
+		}
+	}
 	public void LoadLever(string name){
 		//Debug.Log("Lever request for : " + name);
 		// jump to the scene which has been input in gui
 		// "Game" is given, so the after click this button
 		// the game will start the scene "Game" 
 		Application.LoadLevel(name);
-		//Brick.breakableCount = 0;
 	}
 
 	public void QuitRequest(){
-		//Debug.Log("I wanna quit!");
 		Application.Quit();
 	}
 
