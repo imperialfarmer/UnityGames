@@ -1,0 +1,15 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerPrefsManager.cs">
+    <Files>
+      <File FileName="Assets/Scripts/MusicManager.cs" Line="16" Column="61" />
+      <File FileName="Assets/Scripts/FadeIn.cs" Line="23" Column="35" />
+      <File FileName="Assets/Scripts/PlayerPrefsManager.cs" Line="12" Column="31" />
+      <File FileName="Assets/Scripts/OptionController.cs" Line="37" Column="63" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
