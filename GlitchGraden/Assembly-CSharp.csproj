@@ -51,12 +51,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Attackers.cs" />
+     <Compile Include="Assets\Scripts\Attackers\Attackers.cs" />
+     <Compile Include="Assets\Scripts\Attackers\Fox.cs" />
+     <Compile Include="Assets\Scripts\Attackers\Lizard.cs" />
+     <Compile Include="Assets\Scripts\Attackers\Wolf.cs" />
+     <Compile Include="Assets\Scripts\Defenders\Defenders.cs" />
+     <Compile Include="Assets\Scripts\Defenders\GraveStone.cs" />
+     <Compile Include="Assets\Scripts\Defenders\Shooter.cs" />
      <Compile Include="Assets\Scripts\FadeIn.cs" />
+     <Compile Include="Assets\Scripts\Health.cs" />
      <Compile Include="Assets\Scripts\LevelManager.cs" />
      <Compile Include="Assets\Scripts\MusicManager.cs" />
      <Compile Include="Assets\Scripts\OptionController.cs" />
      <Compile Include="Assets\Scripts\PlayerPrefsManager.cs" />
+     <Compile Include="Assets\Scripts\Projectiles\Projectiles.cs" />
+     <Compile Include="Assets\Scripts\Shredder.cs" />
  <Reference Include="Facebook.Unity.Settings">
  <HintPath>/Users/geyin/Documents/Unity Workspace/GlitchGraden/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
  </Reference>
