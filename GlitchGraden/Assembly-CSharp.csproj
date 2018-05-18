@@ -55,6 +55,7 @@
      <Compile Include="Assets\Scripts\Attackers\Fox.cs" />
      <Compile Include="Assets\Scripts\Attackers\Lizard.cs" />
      <Compile Include="Assets\Scripts\Attackers\Wolf.cs" />
+     <Compile Include="Assets\Scripts\Buttons.cs" />
      <Compile Include="Assets\Scripts\Defenders\Defenders.cs" />
      <Compile Include="Assets\Scripts\Defenders\GraveStone.cs" />
      <Compile Include="Assets\Scripts\Defenders\Shooter.cs" />

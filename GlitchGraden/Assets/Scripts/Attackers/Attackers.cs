@@ -5,7 +5,6 @@ using UnityEngine;
 public class Attackers : MonoBehaviour {
 
 	private float currentSpeed;
-	public float attackerHealth;
 	private GameObject currentTarget;
 	private Animator anim;
 
@@ -18,7 +17,6 @@ public class Attackers : MonoBehaviour {
 		transform.Translate(Vector3.left*currentSpeed*Time.deltaTime);
 		anim = GetComponent<Animator>();
 		if(!currentTarget) anim.SetBool("isAttacking", false);
-		if(attackerHealth <= 0f) anim.SetBool("isDead", true); // TODO will be moved to health and remove collider
 	}
 
 	void OnTriggerEnter2D(){

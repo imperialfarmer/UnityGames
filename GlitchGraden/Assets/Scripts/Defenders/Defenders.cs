@@ -17,4 +17,8 @@ public class Defenders : MonoBehaviour {
 	void OnTriggerEnter2D(){
 		Debug.Log(name + "Defender Triggered");
 	}
+
+	public void DestoryDefender(){
+		Destroy(gameObject);
+	}
 }
