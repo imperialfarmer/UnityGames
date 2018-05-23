@@ -2,8 +2,12 @@
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Camera/CameraController.cs">
     <Files>
-      <File FileName="Assets/BowlingBall/Ball.cs" Line="17" Column="1" />
-      <File FileName="Assets/Camera/CameraController.cs" Line="14" Column="3" />
+      <File FileName="Assets/BowlingBall/Ball.cs" Line="62" Column="54" />
+      <File FileName="Assets/Camera/CameraController.cs" Line="17" Column="45" />
+      <File FileName="Assets/BowlingBall/DragLaunch.cs" Line="12" Column="29" />
+      <File FileName="Assets/BowlingPin/Pin.cs" Line="11" Column="11" />
+      <File FileName="Assets/Lane/PinSetter/PinSetter.cs" Line="91" Column="40" />
+      <File FileName="Assets/UI/PinCount.cs" Line="14" Column="35" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

@@ -4,27 +4,61 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour {
 
-    public float launchSpeed;
+    public Vector3 launchVelocity;
     private Rigidbody rigidBody;
     private AudioSource audioSource;
+
+    private Vector3 ballStartPos;
+
+    public bool inPlay = false;
+
+    public float movement;
 
 	// Use this for initialization
 	void Start ()
     {
         rigidBody = gameObject.GetComponent<Rigidbody>();
-        audioSource = gameObject.GetComponent<AudioSource>();
-
-        BallLaunch();
+        rigidBody.useGravity = false;
+        ballStartPos = transform.position;
     }
 
-    public void BallLaunch()
+    public void Launch(Vector3 velocity)
     {
-        rigidBody.velocity = new Vector3(0f, 0f, launchSpeed);
+        rigidBody.useGravity = true;
+        rigidBody.velocity = velocity;
+
+        audioSource = gameObject.GetComponent<AudioSource>();
         audioSource.Play();
     }
 
-	// Update is called once per frame
-	void Update () {
+    public void moveRight(){
+        if (!inPlay)
+        {
+            if (transform.position.x <=
+                    105f / 2f - transform.localScale.x / 2f - movement)
+            {
+                transform.position += Vector3.right * movement;
+            }
+        }
+    }
+    public void moveLeft()
+    {
+        if (!inPlay)
+        {
+            if (transform.position.x >=
+                    -105f / 2f + transform.localScale.x / 2f + movement)
+            {
+                transform.position += Vector3.left * movement;
+            }
+        }
+    }
 
-	}
+    public void Reset()
+    {
+        inPlay = false;
+        transform.position = ballStartPos;
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        GetComponent<Rigidbody>().useGravity = false;
+    }
 }
