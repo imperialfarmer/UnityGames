@@ -6,9 +6,13 @@ public class Pin : MonoBehaviour {
 
     public float standingThreshold = 3f;
 
+    private AudioSource audioSource;
+
+
 	// Use this for initialization
 	void Start () {
         //print(name + " " + isStanding());
+        audioSource = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -29,6 +33,7 @@ public class Pin : MonoBehaviour {
         if (tiltInX <= standingThreshold &&
            tiltInZ <= standingThreshold)
         {
+            transform.rotation = Quaternion.identity;
             return true;
         }
         else
@@ -36,4 +41,13 @@ public class Pin : MonoBehaviour {
             return false;
         }
     }
+
+
+    void OnCollisionEnter(Collision collision)
+    {
+        GameObject col = collision.gameObject;
+        //Debug.Log(name + " collised with" + col);
+        if (col.GetComponent<Ball>()) audioSource.Play();
+    }
+
 }

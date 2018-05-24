@@ -62,10 +62,12 @@
     <Compile Include="Assets\BowlingBall\Ball.cs" />
     <Compile Include="Assets\BowlingBall\DragLaunch.cs" />
     <Compile Include="Assets\BowlingPin\Pin.cs" />
-    <Compile Include="Assets\Camera\CameraController.cs" />
+    <Compile Include="Assets\Control\ActionMaster.cs" />
+    <Compile Include="Assets\Control\Camera\CameraController.cs" />
+    <Compile Include="Assets\Control\GameManager.cs" />
+    <Compile Include="Assets\Control\ScoreMaster.cs" />
+    <Compile Include="Assets\Lane\Floor\FloorBox.cs" />
     <Compile Include="Assets\Lane\PinSetter\PinSetter.cs" />
-    <Compile Include="Assets\START Pack\Scripts\ActionMaster2.cs" />
-    <Compile Include="Assets\START Pack\Scripts\OurScoreDisplayTest1.cs" />
     <Compile Include="Assets\UI\PinCount.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>/Users/geyin/Documents/Unity Workspace/BowlMaster/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>

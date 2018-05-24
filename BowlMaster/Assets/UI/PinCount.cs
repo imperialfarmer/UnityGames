@@ -17,10 +17,10 @@ public class PinCount : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         myText.text = pinSetter.CountStanding().ToString();
-        if(pinSetter.ballIsIn){
+        if(pinSetter.ballOutOfPlay && !pinSetter.isSwiping){
             myText.color = Color.red;
         }
-        if(pinSetter.pinSettled && !pinSetter.ballIsIn){
+        if(pinSetter.pinSettled && !pinSetter.ballOutOfPlay && !pinSetter.isSwiping){
             myText.color = Color.green;
         }
 	}

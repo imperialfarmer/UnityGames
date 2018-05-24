@@ -4,27 +4,32 @@ using UnityEngine;
 
 public class PinSetter : MonoBehaviour {
 
-    public bool ballIsIn = false;
+    public bool ballOutOfPlay = false;
     public bool pinSettled = false;
+    public int lastSettledCount = 10;
+    public bool isSwiping = false;
+
     private float raiseDistance = 40f;
     private float raiseOffset = 5f;
     private float lastChangeTime;
     private int lastStandingCount = -1;
 
+    private Animator animator;
+
+    private ActionMaster actionMaster = new ActionMaster();
+
     public GameObject pinSet;
 
     private Ball ball;
 
-	// Use this for initialization
 	void Start () {
-        //print(CountStanding());
         ball = FindObjectOfType<Ball>();
+        animator = GetComponent<Animator>();
 	}
 	
-	// Update is called once per frame
 	void Update () {
         //print(CountStanding());
-        if(ballIsIn) ChcekStanding();
+        if(ballOutOfPlay) ChcekStanding();
 	}
 
     public int CountStanding(){
@@ -39,15 +44,6 @@ public class PinSetter : MonoBehaviour {
             }
 		}
         return standing;
-    }
-
-    private void OnTriggerEnter(Collider col)
-    {
-        GameObject thingHit = col.gameObject;
-        if (thingHit.GetComponent<Ball>())
-        {
-            ballIsIn = true;
-        }
     }
 
     private void OnTriggerExit(Collider col)
@@ -74,13 +70,43 @@ public class PinSetter : MonoBehaviour {
     }
 
     private void PinsHaveSettled(){
+        int standing = CountStanding();
+        int pinFall = lastSettledCount - standing;
+        lastSettledCount = standing;
+        // TODO:  connect ActionMaster to PinSetter
+        // print(actionMaster.Bowl(pinFall));
+
+        ActionMaster.Action action = actionMaster.Bowl(pinFall);
+
+        if (action == ActionMaster.Action.Tidy)
+        {
+            animator.SetTrigger("tidyTrigger");
+        }
+        else if (action == ActionMaster.Action.EndTurn)
+        {
+            animator.SetTrigger("resetTrigger");
+            lastSettledCount = 10;
+        }
+        else if (action == ActionMaster.Action.Reset)
+        {
+            animator.SetTrigger("resetTrigger");
+            lastSettledCount = 10;
+        }
+        else if (action == ActionMaster.Action.EndGame)
+        {
+            throw new UnityException("End Game?");
+            lastSettledCount = 10;
+        }
+        else throw new UnityException("Action not recognized");
+
         lastStandingCount = -1; // pins have settled, and ball not back
-        ballIsIn = false;
+        ballOutOfPlay = false;
         pinSettled = true;
         ball.Reset();
     }
 
     public void renewPins(){
+        isSwiping = true;
         foreach (Pin pin in FindObjectsOfType<Pin>())
         {
             Destroy(pin.transform.gameObject);
@@ -95,6 +121,7 @@ public class PinSetter : MonoBehaviour {
     }
 
     public void raisePins(){
+        isSwiping = true;
         foreach (Pin pin in FindObjectsOfType<Pin>())
         {
             if (pin.isStanding() )
@@ -111,6 +138,7 @@ public class PinSetter : MonoBehaviour {
 
     public void lowerPins()
     {
+        // TODO remove all not standing pins
         foreach (Pin pin in FindObjectsOfType<Pin>())
         {
             if (pin.isStanding())
@@ -135,5 +163,14 @@ public class PinSetter : MonoBehaviour {
                 pin.GetComponent<Rigidbody>().useGravity = true;
             }
         }
+        isSwiping = false;
+    }
+
+    public void IsSwiping(){
+        isSwiping = true;
+    }
+    public void FinishSwiping()
+    {
+        isSwiping = true;
     }
 }
