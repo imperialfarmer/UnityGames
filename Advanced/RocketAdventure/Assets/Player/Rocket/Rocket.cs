@@ -8,8 +8,9 @@ public class Rocket : MonoBehaviour {
     [SerializeField] float thrustPowerPerFrame = 50f;
     [SerializeField] float rotatePowerPerFrame = 300f;
     [SerializeField] float transitionTime = 1f;
+    [SerializeField] float floatForce = 20f;
 
-    public static int currentLevel = 1;
+    public static int currentLevel;
     [SerializeField] int damage = 25;
 
     [SerializeField] ParticleSystem enginePS;
@@ -20,42 +21,51 @@ public class Rocket : MonoBehaviour {
     [SerializeField] AudioClip collisionSound;
     [SerializeField] AudioClip deadSound;
     [SerializeField] AudioClip engineSound;
-    [SerializeField] AudioClip powerUpSound;
     [SerializeField] AudioClip finishSound;
 
-    private AudioSource audioSource1;
-    private AudioSource audioSource2;
+    private AudioSource audioSource;
     private enum State { Transcending, Alive, Dying, Damaging };
     private State state = State.Alive;
     private PlayerHealth playerHealth;
+    private Animator animator;
 
 	void Start () {
-        audioSource1 = GetComponents<AudioSource>()[0];
-        audioSource2 = GetComponents<AudioSource>()[1];
+        if (currentLevel <= 3) currentLevel = 3;
+        audioSource = GetComponent<AudioSource>();
         playerHealth = GetComponent<PlayerHealth>();
+        animator = GetComponent<Animator>();
+        animator.SetBool("isDead", false);
 	}
 	
 	void Update () {
-        if (playerHealth.currentHealth < 100) deathPS2.Play();
-        else deathPS2.Stop();
+        if (playerHealth.currentHealth < playerHealth.maxHealth) 
+            deathPS2.Play();
+        else 
+            deathPS2.Stop();
 
-        if (state == State.Alive || state == State.Damaging)
+        if (state == State.Alive)
         {
             Thrust();
             Rotate();
         }
+
+        ShieldLight(playerHealth.currentShield/playerHealth.maxShield);
 	}
+
+    public static void GoTo(int level){
+        currentLevel = level;
+    }
 
     private void Thrust(){
         if (Input.GetKey(KeyCode.Space))
         {
             GetComponent<Rigidbody>().AddRelativeForce
                      (Vector3.up * thrustPowerPerFrame);
-            if (!audioSource1.isPlaying) audioSource2.PlayOneShot(engineSound);
+            if (!audioSource.isPlaying) audioSource.PlayOneShot(engineSound);
             enginePS.Play();
         } else
         {
-            audioSource2.Stop();
+            audioSource.Stop();
             enginePS.Stop();
         }
     }
@@ -87,33 +97,32 @@ public class Rocket : MonoBehaviour {
                 case "Enemy":
                     if (state != State.Damaging)
                     {
-                        if (playerHealth.currentHealth >= damage)
+                        if(playerHealth.currentHealth <= damage && playerHealth.currentShield <= 0)
                         {
+                            playerHealth.TakeDamage(damage);
+                            deathPS1.Play();
+                            audioSource.Stop();
+                            audioSource.PlayOneShot(deadSound);
+                            enginePS.Stop();
+                            Invoke("ifDie", deadSound.length);
+                            GetComponent<Collider>().enabled = false;
+                            //gameObject.tag = "Default";
+                            state = State.Dying;
+                            animator.SetBool("isDead",true);
+                        }
+                        else{
                             state = State.Damaging;
                             damagedPS.Play();
                             playerHealth.TakeDamage(damage);
-                            audioSource1.PlayOneShot(collisionSound);
-                            Invoke("ResetAlive", collisionSound.length);
-                        }
-                        else
-                        {
-                            deathPS1.Play();
-                            audioSource1.Stop();
-                            audioSource1.PlayOneShot(deadSound);
-                            enginePS.Stop();
-                            Invoke("ifDie", deadSound.length + transitionTime);
-                            state = State.Dying;
+                            audioSource.PlayOneShot(collisionSound);
+                            Invoke("ResetAlive", 0.5f);
                         }
                     }
                     break;
-                case "Fuel":
-                    audioSource1.PlayOneShot(powerUpSound);
-                    ifPowerUp();
-                    break;
                 case "Finish":
-                    audioSource1.Stop();
+                    audioSource.Stop();
                     successPS.Play();
-                    audioSource1.PlayOneShot(finishSound);
+                    audioSource.PlayOneShot(finishSound);
                     Invoke("ifFinish", finishSound.length + transitionTime);
                     state = State.Transcending;
                     break;
@@ -121,20 +130,52 @@ public class Rocket : MonoBehaviour {
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        GameObject triObj = other.gameObject;
+        if(triObj.tag == "Border" && state == State.Alive){
+            ifDie();
+        }
+    }
+
     private void ifDie(){
         SceneManager.LoadScene(currentLevel);
+        animator.SetBool("isDead", false);
     }
 
     private void ifFinish(){
         currentLevel += 1;
+        Debug.Log("Next Level = " + currentLevel);
+        PlayerPrefsManager.UnlockLevel(currentLevel);
         SceneManager.LoadScene(currentLevel);
-    }
-
-    private void ifPowerUp(){
-        
     }
 
     private void ResetAlive(){
         state = State.Alive;
+    }
+
+    private void ShieldLight(float shield){
+        if(shield <= 0f){
+            transform.GetChild(0).gameObject.
+                     GetComponent<Light>().intensity = 0f;
+        }
+        else if (shield <= 0.5f)
+        {
+            transform.GetChild(0).gameObject.
+                     GetComponent<Light>().intensity = 0.5f;
+        }
+        else if(shield >= 1f)
+        {
+            transform.GetChild(0).gameObject.
+                     GetComponent<Light>().intensity = 1f;
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        GameObject colObj = other.gameObject;
+        if(colObj.tag == "Water"){
+            GetComponent<Rigidbody>().AddForce(Vector3.up * floatForce);
+        }
     }
 }
