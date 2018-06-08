@@ -57,7 +57,7 @@ public class Rocket : MonoBehaviour {
     }
 
     private void Thrust(){
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W))
         {
             GetComponent<Rigidbody>().AddRelativeForce
                      (Vector3.up * thrustPowerPerFrame);
@@ -97,9 +97,36 @@ public class Rocket : MonoBehaviour {
                 case "Enemy":
                     if (state != State.Damaging)
                     {
-                        if(playerHealth.currentHealth <= damage && playerHealth.currentShield <= 0)
+                        if(playerHealth.currentHealth + playerHealth.currentShield > damage)
                         {
-                            playerHealth.TakeDamage(damage);
+                            ReactToDamage(damage);
+                        }
+                        else{
+                            ReactToDeath();
+                        }
+                    }
+                    break;
+                case "ThunderBorder":
+                    if (state != State.Damaging)
+                    {
+                        playerHealth.TakeDamage(damage*10);
+                        deathPS1.Play();
+                        audioSource.Stop();
+                        audioSource.PlayOneShot(deadSound);
+                        enginePS.Stop();
+                        Invoke("ifDie", deadSound.length);
+                        GetComponent<Collider>().enabled = false;
+                        //gameObject.tag = "Default";
+                        state = State.Dying;
+                        animator.SetBool("isDead", true);
+                    }
+                    break;
+                case "Lava":
+                    if (state != State.Damaging)
+                    {
+                        if (playerHealth.currentHealth <= damage*2 && playerHealth.currentShield <= 0)
+                        {
+                            playerHealth.TakeDamage(damage*2);
                             deathPS1.Play();
                             audioSource.Stop();
                             audioSource.PlayOneShot(deadSound);
@@ -108,12 +135,13 @@ public class Rocket : MonoBehaviour {
                             GetComponent<Collider>().enabled = false;
                             //gameObject.tag = "Default";
                             state = State.Dying;
-                            animator.SetBool("isDead",true);
+                            animator.SetBool("isDead", true);
                         }
-                        else{
+                        else
+                        {
                             state = State.Damaging;
                             damagedPS.Play();
-                            playerHealth.TakeDamage(damage);
+                            playerHealth.TakeDamage(damage*2);
                             audioSource.PlayOneShot(collisionSound);
                             Invoke("ResetAlive", 0.5f);
                         }
@@ -135,6 +163,20 @@ public class Rocket : MonoBehaviour {
         GameObject triObj = other.gameObject;
         if(triObj.tag == "Border" && state == State.Alive){
             ifDie();
+        }
+        if(triObj.tag == "Thunder"){
+            if(playerHealth.currentShield <= 0){
+                playerHealth.TakeDamage(damage * 10);
+                deathPS1.Play();
+                audioSource.Stop();
+                audioSource.PlayOneShot(deadSound);
+                enginePS.Stop();
+                Invoke("ifDie", deadSound.length);
+                GetComponent<Collider>().enabled = false;
+                //gameObject.tag = "Default";
+                state = State.Dying;
+                animator.SetBool("isDead", true);
+            }
         }
     }
 
@@ -178,4 +220,26 @@ public class Rocket : MonoBehaviour {
             GetComponent<Rigidbody>().AddForce(Vector3.up * floatForce);
         }
     }
+
+    public void ReactToDamage(int incomingDamage){
+        state = State.Damaging;
+        damagedPS.Play();
+        playerHealth.TakeDamage(incomingDamage);
+        audioSource.PlayOneShot(collisionSound);
+        Invoke("ResetAlive", 0.5f);
+    }
+
+    public void ReactToDeath(){
+        playerHealth.TakeDamage(damage);
+        deathPS1.Play();
+        audioSource.Stop();
+        audioSource.PlayOneShot(deadSound);
+        enginePS.Stop();
+        Invoke("ifDie", deadSound.length);
+        GetComponent<Collider>().enabled = false;
+        //gameObject.tag = "Default";
+        state = State.Dying;
+        animator.SetBool("isDead", true);
+    }
+
 }

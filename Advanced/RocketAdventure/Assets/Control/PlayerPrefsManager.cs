@@ -14,11 +14,19 @@ public class PlayerPrefsManager{
             PlayerPrefs.SetInt(LEVEL_KEY, level - 3);
             Debug.Log("Level " + (level - 3).ToString() + " Unlocked");
         }
-
-        //PlayerPrefs.SetInt(LEVEL_KEY, 0);
     }
 
     public static int GetUnlockLevel(){
         return PlayerPrefs.GetInt(LEVEL_KEY);
+    }
+
+    public static void ResetLevels()
+    {
+        PlayerPrefs.SetInt(LEVEL_KEY, 0);
+    }
+
+    public static void UnlockAllLevels()
+    {
+        PlayerPrefs.SetInt(LEVEL_KEY, 40);
     }
 }
