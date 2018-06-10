@@ -8,25 +8,32 @@ public class Meteorid : MonoBehaviour {
     [SerializeField] float loopTime;
     [SerializeField] float delayTime;
 
+    private bool waiting = true;
+
     private Vector3 originalPos;
-    private float currentTime;
+    private float currentTime = 0f;
+    private float lastTime = 0f;
 
 	void Start () {
         originalPos = transform.position;
         currentTime = Time.timeSinceLevelLoad;
+        lastTime = currentTime + delayTime;
 	}
 
     private void Update()
     {
-        if(delayTime <= 0.5f )transform.position += speed * Time.deltaTime;
-        if (Time.timeSinceLevelLoad - currentTime - delayTime >= loopTime)
+        currentTime = Time.timeSinceLevelLoad;
+        if (currentTime > lastTime) {
+            waiting = false;
+        }
+        if(!waiting) transform.position += speed * Time.deltaTime;
+        if (currentTime - lastTime >= loopTime)
                ResetPos();
     }
 
     private void ResetPos()
     {
         transform.position = originalPos;
-        currentTime = Time.timeSinceLevelLoad;
-        delayTime = 0f;
+        lastTime = Time.timeSinceLevelLoad;       
     }
 }

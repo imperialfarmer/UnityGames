@@ -181,6 +181,8 @@ public class Rocket : MonoBehaviour {
                 //gameObject.tag = "Default";
                 state = State.Dying;
                 animator.SetBool("isDead", true);
+            }else{
+                // ReactToDamage(damage);
             }
         }
     }

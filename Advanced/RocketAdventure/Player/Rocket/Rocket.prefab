@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 114262381067146830}
   - component: {fileID: 65102945603131472}
   - component: {fileID: 95076712097211342}
-  - component: {fileID: 81689122744469758}
+  - component: {fileID: 81000974375461152}
   m_Layer: 0
   m_Name: Rocket
   m_TagString: Friendly
@@ -366,7 +366,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1777819301108910}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -23.02, y: 17.932999, z: 0}
+  m_LocalPosition: {x: 0, y: 9.542998, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4979763415179844}
@@ -756,7 +756,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.3, y: 4.3, z: 1}
   m_Center: {x: 0, y: 2.85, z: 0}
---- !u!81 &81689122744469758
+--- !u!81 &81000974375461152
 AudioListener:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1005,6 +1005,7 @@ MonoBehaviour:
   explosionParticles: {fileID: 0}
   healthBar: {fileID: 0}
   shieldBar: {fileID: 0}
+  DieBecauseDebuff: 0
 --- !u!114 &114362122553474018
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -8,9 +8,11 @@ public class ShowDir : MonoBehaviour {
     private bool triggered = false;
     private ParticleSystem explosion;
 
+
 	void Start () {
         originalPos = transform.position;
         explosion = transform.GetChild(0).GetComponent<ParticleSystem>();
+        explosion.Stop();
 	}
 
     private void Update()
