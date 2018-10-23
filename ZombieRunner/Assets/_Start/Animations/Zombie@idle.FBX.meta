@@ -1,9 +1,7 @@
 fileFormatVersion: 2
 guid: ffdfc6eeb3c26432595927149a08c09f
-timeCreated: 1520680638
-licenseType: Store
 ModelImporter:
-  serializedVersion: 22
+  serializedVersion: 23
   fileIDToRecycleName:
     100000: Bip01
     100002: Bip01 Head
@@ -125,12 +123,13 @@ ModelImporter:
     13700028: R Spine
     13700030: R Spine1
     13700032: R UpperArm
+    2186277476908879412: ImportLogs
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Zombie
-    second: {fileID: 2100000, guid: 4bd180b051e2ca54ebfe82cf04ec20a6, type: 2}
+    second: {fileID: 2100000, guid: 6a061daefd3aa40628b9fb1a33436ee3, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -156,6 +155,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -307,6 +307,8 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
